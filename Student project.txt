@@ -1,0 +1,55 @@
+import java.util.ArrayList;
+import java.util.List;
+
+class StudentProject {
+    String studentName;
+    int numberOfProjects;
+    int[] projectCompletionTime; // Array to store completion time for each project
+
+    StudentProject(String studentName, int numberOfProjects, int[] projectCompletionTime) {
+        this.studentName = studentName;
+        this.numberOfProjects = numberOfProjects;
+        this.projectCompletionTime = projectCompletionTime;
+    }
+
+    // Method to calculate statistics for a student's projects
+    void calculateStatistics() {
+        int onTime = 0, late = 0, early = 0;
+        int totalCompletionTime = 0;
+        for (int time : projectCompletionTime) {
+            if (time == 0)
+                onTime++;
+            else if (time < 0)
+                late++;
+            else
+                early++;
+            totalCompletionTime += time;
+        }
+
+        int totalProjects = onTime + late + early;
+        double averageCompletionTime = (double) totalCompletionTime / totalProjects;
+
+        System.out.println("Student: " + studentName);
+        System.out.println("Projects completed on time: " + onTime);
+        System.out.println("Projects completed late: " + late);
+        System.out.println("Projects completed early: " + early);
+        System.out.println("Average completion time: " + averageCompletionTime);
+        System.out.println();
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        List<StudentProject> studentProjects = new ArrayList<>();
+
+        // Example projects data
+        studentProjects.add(new StudentProject("Priya", 3, new int[]{0, -1, 2}));
+        studentProjects.add(new StudentProject("Ganesh", 2, new int[]{0, 1}));
+        studentProjects.add(new StudentProject("Krishna", 4, new int[]{0, 0, -2, 1}));
+
+        // Calculate statistics for each student's projects
+        for (StudentProject studentProject : studentProjects) {
+            studentProject.calculateStatistics();
+        }
+    }
+}

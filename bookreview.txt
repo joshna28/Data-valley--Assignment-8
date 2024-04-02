@@ -1,0 +1,59 @@
+import java.util.ArrayList;
+import java.util.List;
+
+class BookReview {
+    String bookTitle;
+    int rating;
+
+    BookReview(String bookTitle, int rating) {
+        this.bookTitle = bookTitle;
+        this.rating = rating;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        List<BookReview> bookReviews = new ArrayList<>();
+
+        // Example book reviews data
+        bookReviews.add(new BookReview("Book1", 5));
+        bookReviews.add(new BookReview("Book2", 8));
+        bookReviews.add(new BookReview("Book3", 10));
+        bookReviews.add(new BookReview("Book4", 6));
+        bookReviews.add(new BookReview("Book5", 10));
+        bookReviews.add(new BookReview("Book6", 8));
+
+        // Count of books within specified rating ranges
+        int[] ratingRangeCounts = new int[2]; // Index 0: 1-5 stars, Index 1: 6-10 stars
+
+        // Count of books with positive, neutral, and negative reviews
+        int[] reviewTypeCounts = new int[3]; // Index 0: Positive, Index 1: Neutral, Index 2: Negative
+
+        // Iterate through book reviews to calculate counts
+        for (BookReview review : bookReviews) {
+            // Count books within specified rating ranges
+            if (review.rating >= 1 && review.rating <= 5)
+                ratingRangeCounts[0]++;
+            else if (review.rating >= 6 && review.rating <= 10)
+                ratingRangeCounts[1]++;
+
+            // Count books with positive, neutral, and negative reviews
+            if (review.rating >= 7)
+                reviewTypeCounts[0]++; // Positive review
+            else if (review.rating >= 4 && review.rating <= 6)
+                reviewTypeCounts[1]++; // Neutral review
+            else
+                reviewTypeCounts[2]++; // Negative review
+        }
+
+        // Display the results
+        System.out.println("Books Reviewed within Rating Ranges:");
+        System.out.println("1-5 stars: " + ratingRangeCounts[0] + " books");
+        System.out.println("6-10 stars: " + ratingRangeCounts[1] + " books");
+
+        System.out.println("\nReviews Sentiment:");
+        System.out.println("Positive Reviews: " + reviewTypeCounts[0]);
+        System.out.println("Neutral Reviews: " + reviewTypeCounts[1]);
+        System.out.println("Negative Reviews: " + reviewTypeCounts[2]);
+    }
+}

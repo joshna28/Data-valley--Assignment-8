@@ -1,0 +1,60 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+class Restaurant {
+    String name;
+    int rating;
+
+    Restaurant(String name, int rating) {
+        this.name = name;
+        this.rating = rating;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        List<Restaurant> restaurantRatings = new ArrayList<>();
+
+        // Example restaurant ratings data
+        restaurantRatings.add(new Restaurant("Restaurant1", 4));
+        restaurantRatings.add(new Restaurant("Restaurant2", 8));
+        restaurantRatings.add(new Restaurant("Restaurant3", 3));
+        restaurantRatings.add(new Restaurant("Restaurant4", 6));
+        restaurantRatings.add(new Restaurant("Restaurant5", 10));
+        restaurantRatings.add(new Restaurant("Restaurant6", 2));
+
+        // Map to store count and total rating for each range
+        Map<String, Integer> countMap = new HashMap<>();
+        Map<String, Integer> totalRatingMap = new HashMap<>();
+
+        // Initialize maps with default values
+        for (int i = 1; i <= 10; i += 5) {
+            String key = i + "-" + (i + 4);
+            countMap.put(key, 0);
+            totalRatingMap.put(key, 0);
+        }
+
+        // Calculate count and total rating for each range
+        for (Restaurant restaurant : restaurantRatings) {
+            for (int i = 1; i <= 10; i += 5) {
+                if (restaurant.rating >= i && restaurant.rating <= i + 4) {
+                    String key = i + "-" + (i + 4);
+                    countMap.put(key, countMap.get(key) + 1);
+                    totalRatingMap.put(key, totalRatingMap.get(key) + restaurant.rating);
+                    break;
+                }
+            }
+        }
+
+        // Calculate average rating for each range and display results
+        System.out.println("Restaurant Ratings Statistics:");
+        for (String range : countMap.keySet()) {
+            int count = countMap.get(range);
+            int totalRating = totalRatingMap.get(range);
+            double averageRating = (double) totalRating / count;
+            System.out.println("Rating Range: " + range + ", Number of Restaurants: " + count + ", Average Rating: " + averageRating);
+        }
+    }
+}
